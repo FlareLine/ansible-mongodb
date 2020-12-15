@@ -1,0 +1,7 @@
+- name: remount the /data directory ensuring that we enable noatime to disable access timestamps
+  mount:
+    path: {{ lvm_data_mount }}
+    boot: yes
+    opts: rw,noatime
+    state: remounted
+  tags: notest

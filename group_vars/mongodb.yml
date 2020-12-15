@@ -1,0 +1,45 @@
+---
+tune_vm_dirty_ratio: 10
+tune_vm_dirty_bg_ratio: 2
+tune_vm_swappiness: 1
+
+tune_net_core_somaxconn: 4096
+tune_net_tcp_fin_timeout: 30
+tune_net_tcp_keepalive_intv1: 30
+tune_net_tcp_keepalive_time: 120
+tune_net_tcp_max_syn_backlog: 4096
+
+tune_data_readahead: 8
+
+lvm_data_mount: /dev/sdb # Change this to match your specific device
+
+mongodb_major_version: 4
+mongodb_minor_version: 4
+mongodb_build_version: 2
+mongodb_version: '{{ mongodb_major_version }}.{{ mongodb_minor_version }}'
+mongodb_version_full: '{{ mongodb_major_version }}.{{ mongodb_minor_version }}.{{ mongodb_build_version }}'
+
+mongodb_bind_port: 27017
+mongodb_enable_journal: true
+mongodb_log_append: true
+mongodb_log_timestamp_format: iso8601-utc
+mongodb_keyfile_location: /data/mongodb-keyfile
+mongodb_authorization_enabled: true
+mongodb_log_directory: /var/log/mongodb/
+mongodb_log_path: '{{ mongodb_log_directory }}/mongod.log'
+mongodb_data_path: /data/{{ mongodb_replicaset_name }}
+mongodb_secondary_prefetch: all
+mongodb_storage_engine: wiredTiger
+mongodb_net_compression_compressors: snappy # Replace this with zlib from 3.6 and zstd from 4.2
+
+mongodb_authentication_database: admin
+
+mongodb_replica_set_name: MyReplicaSet
+mongodb_replica_set_nodes:
+  - dev-mongo01
+  - dev-mongo02
+  - dev-mongo03
+mongodb_replica_set_keyfile: mongodb-keyfile
+
+mongodb_root_username: root_mongodb
+mongodb_root_password: test123 # VAULTME

@@ -1,0 +1,21 @@
+---
+- name: include system level configuration
+  include_tasks: system.yml
+
+- name: include filesystem level configuration
+  include_tasks: filesystem.yml
+
+- name: include update configuration
+  include_tasks: upgrades.yml
+
+- name: include configuration configuration
+  include_tasks: config.yml
+
+- name: include tuning configuration
+  include_tasks: tune.yml
+
+- name: include mongodb install configuration
+  include_tasks: install.yml
+
+- name: include mongodb configuration
+  include_tasks: mongodb.yml

@@ -1,0 +1,13 @@
+// File configured by Ansible. Used to configure the MongoDB root user.
+
+db.createUser({
+  user: "{{ mongodb_root_username }}",
+  pwd: "{{ mongodb_root_password }}",
+  roles: [
+    "root"
+  ]
+});
+
+db.auth("{{ mongodb_root_username }}", "{{ mongodb_root_password }}");
+
+printjson(db.getUser("{{ mongodb_root_username }}"));

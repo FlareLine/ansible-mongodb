@@ -1,0 +1,7 @@
+// File configured by Ansible. Please use version control to manage this file.
+// Used to manage the ulimits for the system based on the provided configuration.
+
+{{ system_service_username }}       soft        nproc        {{ nproc_soft_limit }}
+{{ system_service_username }}       hard        nproc        {{ nproc_hard_limit }}
+{{ system_service_username }}       soft        nofile       {{ nofile_soft_limit }}
+{{ system_service_username }}       hard        nofile       {{ nofile_hard_limit }}

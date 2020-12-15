@@ -1,0 +1,25 @@
+---
+- name: ensure dbpath exists
+  file:
+    path: /data/{{ mongodb_replica_set_name }}
+    state: directory
+    owner: '{{ system_service_username }}'
+    group: '{{ system_service_group }}'
+    mode: 0644
+
+- name: ensure logpath exists
+  file:
+    path: {{ mongodb_log_directory }}
+    state: directory
+    owner: '{{ system_service_username }}'
+    group: '{{ system_service_group }}'
+    mode: 0644
+
+- name: copy config using template
+  template:
+    src: mongod.conf.j2
+    dest: /etc/mongod.conf
+    owner: '{{ system_service_username }}'
+    group: '{{ system_service_group }}'
+    mode: 0644
+  notify: restart mongodb

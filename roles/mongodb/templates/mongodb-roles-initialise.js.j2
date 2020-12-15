@@ -1,0 +1,11 @@
+// File configured by Ansible. Used to configure MongoDB roles based on provided configuration.
+
+{% for role in ( mongodb_roles | dict2items ) %}
+db.createRole({
+  role: "{{ role.key }}",
+  privileges: {{ role.value.privileges | default([]) | to_json }},
+  roles: {{ role.value.roles | default([]) | to_json }}
+});
+{% endfor %}
+
+printjson(db.getRoles());

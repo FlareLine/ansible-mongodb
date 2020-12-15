@@ -1,0 +1,42 @@
+---
+- name: install gnupg
+  apt:
+    name: gnupg
+    state: present
+    update_cache: yes
+
+- name: install xz-utils for manual dpkg install
+  apt:
+    name: xz-utils
+    state: present
+    update_cache: yes
+
+- name: add libssl1.0.0 dependency if mongodb version is 3.4 or less
+  apt:
+    deb: '{{ lib_ssl_deb_url }}'
+    state: present
+  when: mongodb_version <= 3.4
+
+- name: add mongodb gpg apt key
+  apt_key:
+    url: "{{ mongodb_apt_key_url }}"
+    state: present
+
+- name: add mongodb repository
+  apt_repository:
+    filename: '{{ mongodb_apt_repository_filename }}'
+    repo: '{{ mongodb_apt_repository }}'
+    state: present
+    update_cache: yes
+    mode: 0644
+
+- name: install mongodb
+  apt:
+    name:
+      - mongodb-org={{ mongodb_version_full }}
+      - mongodb-org-server={{ mongodb_version_full }}
+      - mongodb-org-shell={{ mongodb_version_full }}
+      - mongodb-org-mongos={{ mongodb_version_full }}
+      - mongodb-org-tools={{ mongodb_version_full }}
+    state: present
+    update_cache: yes

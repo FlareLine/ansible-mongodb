@@ -1,0 +1,6 @@
+// File configured by Ansible. Used to configure the MongoDB replica set.
+
+{% for node in mongodb_replica_set_nodes %}
+rs.add("{{ hostvars[node].ansible_host if hostvars[node].ansible_host is defined else node }}:{{ mongodb_port }}");
+{% endfor %}
+printjson(rs.status());

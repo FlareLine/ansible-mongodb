@@ -1,0 +1,27 @@
+// File configured by Ansible. Please use version control to manage this file.
+
+storage:
+  dbPath: {{ mongodb_data_path }}
+  engine: {{ mongodb_storage_engine }}
+  journal:
+    enabled: {{ mongodb_enable_journal }}
+
+systemLog:
+  destination: file
+  logAppend: {{ mongodb_log_append }}
+  path: {{ mongodb_log_path }}
+  timestampFormat: {{ mongodb_log_timestamp_format }}
+
+net:
+  port: {{ mongodb_bind_port }}
+  bindIp: {{ net_bond_ip_address | default('0.0.0.0') }}
+  compression:
+    compressors: {{ mongodb_net_compression_compressors }}
+
+replication:
+  replicasetName: "{{ mongodb_replicaset_name }}"
+  secondaryIndexPrefetch: {{ mongodb_secondary_prefetch }}
+
+security:
+  keyFile: {{ mongodb_keyfile_location }}
+  authorization: {{ mongodb_authorization_enabled }}

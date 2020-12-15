@@ -1,0 +1,21 @@
+// File configured by Ansible. Please use version control to manage this file.
+
+Unattended-Upgrade::Allowed-Origins {
+{%- for item in unattended_upgrade_allowed_origins %}
+  "{{ item }}";
+{%- endfor %}
+};
+
+Unattended-Upgrade::Package-Blacklist {
+{%- for item in (unattended_upgrade_disallowed_packages | default([])) %}
+  "{{ item }}";
+{%- endfor %}
+};
+
+// This option will controls whether the development release of Ubuntu will be
+// upgraded automatically.
+Unattended-Upgrade::DevRelease "{{ unattended_upgrade_dev_release_upgrade }}";
+
+Unattended-Upgrade::Automatic-Reboot "{{ unattended_upgrade_automatic_reboot }}";
+
+Unattended-Upgrade::Automatic-Reboot-Time "{{ unattended_upgrade_reboot_time | mandatory }}";

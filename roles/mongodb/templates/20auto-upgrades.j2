@@ -1,0 +1,7 @@
+// File configured by Ansible. Please use version control to manage this file.
+
+APT::Periodic::Update-Package-Lists "{{ unattended_update_list_interval_days }}";
+APT::Periodic::Download-Upgradeable-Packages "{{ unattended_download_upgradeable_interval_days }}";
+APT::Periodic::Unattended-Upgrade "{{ unattended_upgrade_interval_days }}";
+APT::Periodic::AutocleanInterval "{{ unattended_auto_clean_interval_days }}";
+APT::Periodic::Verbose "{{ unattended_verbosity }}";
